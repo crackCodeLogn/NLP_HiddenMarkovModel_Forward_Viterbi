@@ -12,13 +12,18 @@ public class Forward_Algorithm {
      *
      * @param obs        - given observation list, for which the likelihood has to be calculated
      * @param states     - the various states the HMM goes through
-     * @param start_p    - the start probability of each state (also denoted using the pi sign)
+     * @param start_p    - the start probability of each state (also denoted using the pi sign on paper)
      * @param trans_p    - the transition probability for each state, i.e. probability of transitioning from prev state to current state or one state to another
      * @param emission_p - the emission probability, i.e. the probability associated with each observation
      * @return prob - likelihood probability of the input observation sequence
      */
     public static double compute(int obs[], int states[], double start_p[], double trans_p[][], double emission_p[][]) {
         double fwd[][] = new double[obs.length][states.length];
+
+        System.out.println("\nPrinting the observation list:-");
+        for(int i=0;i<obs.length;i++)
+            System.out.print(obs[i]+" ");
+        System.out.println();
 
         //initializing the forward matrix
         for (int state : states) {
@@ -34,6 +39,15 @@ public class Forward_Algorithm {
                 fwd[i][state1] *= emission_p[state1][obs[i] - 1];
             }
         }
+
+        //Uncomment below code part to see the status of the fwd matrix
+        /*
+        for(int i=0;i<obs.length;i++){
+            for(int j=0;j<states.length;j++)
+                System.out.print(fwd[i][j]+" ");
+            System.out.println();
+        }
+        */
 
         //calculating the final likelihood probability
         double prob = 0;
@@ -65,6 +79,6 @@ public class Forward_Algorithm {
 
         int obs2[] = {3, 3, 1, 1, 2, 3, 3, 1, 2};
         prob_result = compute(obs2, states, start_p, trans_p, emit_p);
-        System.out.println("\nResultant path of second observation: " + prob_result);
+        System.out.println("Resultant path of second observation: " + prob_result);
     }
 }

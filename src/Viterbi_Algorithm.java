@@ -21,6 +21,11 @@ public class Viterbi_Algorithm {
         double[][] viterbi = new double[obs.length][states.length];
         int[][] path = new int[states.length][obs.length];
 
+        System.out.println("\nPrinting the observation list:-");
+        for (int i = 0; i < obs.length; i++)
+            System.out.print(obs[i] + " ");
+        System.out.println();
+
         //initializing the viterbi matrix and the path matrix
         for (int state : states) {
             viterbi[0][state] = start_p[state] * emission_p[state][obs[0] - 1];
@@ -47,6 +52,15 @@ public class Viterbi_Algorithm {
 
             path = newpath;
         }
+
+        //Uncomment below code part to see the status of the viterbi matrix
+        /*
+        for (int i = 0; i < obs.length; i++) {
+            for (int j = 0; j < states.length; j++)
+                System.out.print(viterbi[i][j] + " ");
+            System.out.println();
+        }
+        */
 
         double prob = -1;
         int state = 0;
@@ -84,10 +98,11 @@ public class Viterbi_Algorithm {
             if (path == 1) System.out.print("hot ");
             else System.out.print("cold ");
         }
+        System.out.println();
 
         int obs2[] = {3, 3, 1, 1, 2, 3, 3, 1, 2};
         path_result = compute(obs2, states, start_p, trans_p, emit_p);
-        System.out.println("\nResultant path of second observation:-");
+        System.out.println("Resultant path of second observation:-");
         for (int path : path_result) {
             if (path == 1) System.out.print("hot ");
             else System.out.print("cold ");
